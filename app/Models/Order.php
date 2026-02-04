@@ -36,7 +36,7 @@ class Order extends Model
         'customer_notes',
         'admin_notes',
     ];
- /**
+    /**
      * Scope to filter by status
      */
     #[Scope]
@@ -112,7 +112,7 @@ class Order extends Model
     }
 
     //helper methods
-     public function getShippingAddressAttribute()
+    public function getShippingAddressAttribute()
     {
         return implode(', ', array_filter([
             $this->shipping_address_line_1,
@@ -135,16 +135,17 @@ class Order extends Model
         ]);
     }
 
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
 
-        static::creating(function ($order){
+        static::creating(function ($order) {
             if (empty($order->order_number)) {
-                $order->order_number = 'ORD-'. strtoupper(uniqid());
+                $order->order_number = 'ORD-' . strtoupper(uniqid());
             }
         });
 
-        static::created(function($order){
+        static::created(function ($order) {
             $order->statusHistories()->create([
                 'status' => $order->status,
                 'notes' => 'Order created'
@@ -152,5 +153,4 @@ class Order extends Model
             //order confirmation email
         });
     }
-
 }

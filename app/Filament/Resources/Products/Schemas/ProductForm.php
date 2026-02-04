@@ -149,6 +149,8 @@ class ProductForm
                                     ])
                                     ->columns(2)
                             ]),
+
+                        //form image
                         Tab::make('Images')
                             ->icon(Heroicon::Photo)
                             ->schema([

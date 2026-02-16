@@ -46,13 +46,13 @@ class CouponForm
                 Section::make('Condotions & Limits')
                     ->schema([
                         TextInput::make('minimum_order_value')
-                            ->prefix('Rp')
+                            ->prefix('$')
                             ->minValue(0)
                             ->numeric()
                             ->default(null),
                         TextInput::make('maximum_discount')
                             ->numeric()
-                            ->prefix('Rp')
+                            ->prefix('$')
                             ->minValue(0)
                             ->visible(fn(callable $get) => $get('type') === 'percentage')
                             ->default(null),

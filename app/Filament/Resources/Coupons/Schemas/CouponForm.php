@@ -46,13 +46,13 @@ class CouponForm
                 Section::make('Condotions & Limits')
                     ->schema([
                         TextInput::make('minimum_order_value')
-                            ->prefix('$')
+                            ->prefix('Rp')
                             ->minValue(0)
                             ->numeric()
                             ->default(null),
                         TextInput::make('maximum_discount')
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('Rp')
                             ->minValue(0)
                             ->visible(fn(callable $get) => $get('type') === 'percentage')
                             ->default(null),
@@ -74,6 +74,12 @@ class CouponForm
                         DateTimePicker::make('expires_at')
                             ->native(false),
                     ])
+
+
+
+
+
+
             ]);
     }
 }

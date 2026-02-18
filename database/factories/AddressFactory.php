@@ -31,4 +31,14 @@ class AddressFactory extends Factory
             'type' => fake()->randomElement(['shipping', 'billing', 'both']),
         ];
     }
+
+    /**
+     * Indicate that the address is the default address.
+     */
+    public function default(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'is_default' => true,
+        ]);
+    }
 }

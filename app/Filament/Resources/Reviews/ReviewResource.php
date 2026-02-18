@@ -7,17 +7,18 @@ use App\Filament\Resources\Reviews\Pages\EditReview;
 use App\Filament\Resources\Reviews\Pages\ListReviews;
 use App\Filament\Resources\Reviews\Schemas\ReviewForm;
 use App\Filament\Resources\Reviews\Tables\ReviewsTable;
+use App\Models\Review;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
-
 class ReviewResource extends Resource
 {
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Star;
+    protected static ?string $model = Review::class;
 
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Star;
     protected static string | UnitEnum | null $navigationGroup = 'Customer Management';
 
     public static function form(Schema $schema): Schema

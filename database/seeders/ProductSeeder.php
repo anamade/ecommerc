@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ProductSeeder extends Seeder
 {

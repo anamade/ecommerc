@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 
-
 class CategorySeeder extends Seeder
 {
     /**
@@ -27,9 +26,19 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $index => $category) {
+            $slug = \Illuminate\Support\Str::slug($category['name']);
+
+            // Ensure the slug is unique
+            $originalSlug = $slug;
+            $counter = 1;
+            while (Category::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $counter;
+                $counter++;
+            }
+
             Category::create([
                 'name' => $category['name'],
-                'slug' => \Illuminate\Support\Str::slug($category['name']),
+                'slug' => $slug,
                 'description' => $category['description'],
                 'is_active' => true,
                 'sort_order' => $index,

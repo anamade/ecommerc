@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources\Reviews\Tables;
 
-use App\Filament\Resources\Customers\CustomerResource;
-use App\Filament\Resources\Products\ProductResource;
 use Filament\Actions\Action;
+use Filament\Tables\Table;
+use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
-use Filament\Tables\Table;
+use App\Filament\Resources\Products\ProductResource;
+use App\Filament\Resources\Customers\CustomerResource;
 
 class ReviewsTable
 {
@@ -82,11 +82,12 @@ class ReviewsTable
                     ->visible(fn($record) => $record->is_approved)
                     ->requiresConfirmation(),
                 EditAction::make(),
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                    //add the bulk aprove and reject actions
+                    //add the bulk approve and reject actions
                 ]),
             ]);
     }

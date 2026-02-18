@@ -9,7 +9,6 @@ use App\Models\Customer;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-
 class CustomerSeeder extends Seeder
 {
     /**
@@ -20,7 +19,7 @@ class CustomerSeeder extends Seeder
         // Create a test customer
         $testCustomer = Customer::create([
             'name' => 'Test Customer',
-            'email' => 'customer@test.com',
+            'email' => 'customer' . uniqid() . '@test.com', // Ensure unique email
             'password' => Hash::make('password'),
             'phone' => '+1234567890',
             'date_of_birth' => '1990-01-01',

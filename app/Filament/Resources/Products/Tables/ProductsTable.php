@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -18,51 +19,67 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('brand_id')
-                    ->numeric()
-                    ->sortable(),
+                ImageColumn::make('primaryImage.image_path')
+                    ->label('image')
+                    ->circular()
+                    ->defaultImageUrl(url('/images/placeholder.jpg')),
+                // TextColumn::make('category_id')
+                //     ->numeric()
+                //     ->sortable(),
+                // TextColumn::make('brand_id')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+                // TextColumn::make('slug')
+                //     ->searchable(),
                 TextColumn::make('sku')
                     ->label('SKU')
                     ->searchable(),
+                TextColumn::make('category.name')
+                    ->sortable()
+                    ->searchable()
+                    ->badge()
+                    ->color('info'),
+                TextColumn::make('brand.name')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()
+                    ->badge(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('compare_price')
-                    ->money()
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('cost_price')
-                    ->money()
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('stock_quantity')
                     ->numeric()
+                    ->badge()
                     ->sortable(),
-                TextColumn::make('low_stock_threshold')
-                    ->numeric()
-                    ->sortable(),
-                IconColumn::make('manage_stock')
-                    ->boolean(),
+                // TextColumn::make('low_stock_threshold')
+                //     ->numeric()
+                //     ->sortable(),
+                // IconColumn::make('manage_stock')
+                //     ->boolean(),
                 TextColumn::make('stock_status')
                     ->badge(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 IconColumn::make('is_featured')
                     ->boolean(),
-                IconColumn::make('has_variants')
-                    ->boolean(),
-                TextColumn::make('weight')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('meta_title')
-                    ->searchable(),
+                // IconColumn::make('has_variants')
+                //     ->boolean(),
+                // TextColumn::make('weight')
+                //     ->numeric()
+                //     ->sortable(),
+                // TextColumn::make('meta_title')
+                //     ->searchable(),
                 TextColumn::make('views_count')
                     ->numeric()
+                    ->badge()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

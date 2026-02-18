@@ -26,7 +26,6 @@ class CategoriesTable
                 TextColumn::make('sort_order')
                     ->numeric()
                     ->sortable(),
-
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

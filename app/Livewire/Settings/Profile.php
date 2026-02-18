@@ -2,17 +2,14 @@
 
 namespace App\Livewire\Settings;
 
-use App\Concerns\ProfileValidationRules;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Livewire\Attributes\Computed;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Profile extends Component
 {
-    use ProfileValidationRules;
-
     public string $name = '';
 
     public string $email = '';
@@ -33,7 +30,18 @@ class Profile extends Component
     {
         $user = Auth::user();
 
-        $validated = $this->validate($this->profileRules($user->id));
+        $validated = $this->validate([
+            'name' => ['required', 'string', 'max:255'],
+
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($user->id),
+            ],
+        ]);
 
         $user->fill($validated);
 
@@ -62,18 +70,5 @@ class Profile extends Component
         $user->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
-    }
-
-    #[Computed]
-    public function hasUnverifiedEmail(): bool
-    {
-        return Auth::user() instanceof MustVerifyEmail && ! Auth::user()->hasVerifiedEmail();
-    }
-
-    #[Computed]
-    public function showDeleteUser(): bool
-    {
-        return ! Auth::user() instanceof MustVerifyEmail
-            || (Auth::user() instanceof MustVerifyEmail && Auth::user()->hasVerifiedEmail());
     }
 }

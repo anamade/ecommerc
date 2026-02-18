@@ -29,7 +29,7 @@ class OrdersTable
                     ->searchable()
                     ->sortable()
                     ->color('primary')
-                    ->url(fn($record) => $record->customer ? CustomerResource::getUrl('edit'[$record->customer]) : null),
+                    ->url(fn($record) => $record->customer ? CustomerResource::getUrl('edit', [$record->customer]) : null),
                 TextColumn::make('coupon_id')
                     ->numeric()
                     ->sortable(),
@@ -37,7 +37,7 @@ class OrdersTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('total')
-                    ->money('Rp')
+                    ->money('USD')
                     ->color('success')
                     ->weight('bold')
                     ->sortable(),
@@ -67,11 +67,10 @@ class OrdersTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at','desc')
             ->filters([
                 SelectFilter::make('status')
                     ->options([
-
                         'pending' => 'Pending',
                         'processing' => 'Processing',
                         'shipped' => 'Shipped',

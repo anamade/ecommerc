@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\Brands\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 
 class BrandForm
 {
@@ -16,8 +16,8 @@ class BrandForm
         return $schema
             ->components([
                 Section::make('Brand Information')
-                    ->columns(2)
-                    ->columnSpanFull()
+                ->columns(2)
+                ->columnSpanFull()
                     ->schema([
                         TextInput::make('name')
                             ->required(),
@@ -40,10 +40,8 @@ class BrandForm
                         TextInput::make('website')
                             ->url()
                             ->placeholder('https://example.com'),
-
                     ]),
-
-                Section::make('Display Setting')
+                Section::make('Display Settings')
                     ->schema([
                         Toggle::make('is_active')
                             ->required(),
@@ -51,8 +49,8 @@ class BrandForm
                             ->required()
                             ->numeric()
                             ->default(0),
+                    ])
 
-                    ]),
 
             ]);
     }

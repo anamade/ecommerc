@@ -8,7 +8,6 @@ use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
 class RevenueChart extends ChartWidget
-
 {
     protected static ?int $sort = 2;
     protected ?string $heading = 'Revenue Chart';
@@ -37,7 +36,6 @@ class RevenueChart extends ChartWidget
                 ],
             ],
             'labels' => $data->map(fn(TrendValue $value) => $value->date)
-
         ];
     }
 
@@ -45,12 +43,13 @@ class RevenueChart extends ChartWidget
     {
         return 'line';
     }
+
     protected function getFilters(): array|null
     {
         return [
             'week' => 'Last Week',
             'month' => 'Last Month',
-            'year' => 'Last Week',
+            'year' => 'Last Year',
         ];
     }
 }

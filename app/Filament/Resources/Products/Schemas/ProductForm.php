@@ -25,7 +25,6 @@ class ProductForm
     {
         return $schema
             ->components([
-                //product showcase
                 Tabs::make('Product details')
                     ->columnSpanFull()
                     ->tabs([
@@ -53,7 +52,6 @@ class ProductForm
                                                     ->readOnly()
                                                     ->visibleOn('edit'),
                                             ]),
-
                                         Select::make('brand_id')
                                             ->relationship('brand', 'name')
                                             ->preload()
@@ -79,7 +77,6 @@ class ProductForm
                                             ->columnSpanFull(),
                                     ])
                             ]),
-                        //Price show case
                         Tab::make('Pricing & Inventory')
                             ->icon(Heroicon::CurrencyDollar)
                             ->schema([
@@ -88,7 +85,7 @@ class ProductForm
                                         TextInput::make('sku')
                                             ->label('SKU')
                                             ->unique(ignoreRecord: true)
-                                            ->default(fn() => 'SKU-' . strtoupper(Str::random(8)))
+                                            ->default(fn() => 'SKU-'. strtoupper(Str::random(8)))
                                             ->helperText('Stock keeping Unit -  unique identifier')
                                             ->required(),
 
@@ -98,21 +95,20 @@ class ProductForm
                                             ->minValue(0)
                                             ->step(0.01)
                                             ->helperText('Selling Price') // $40 %10 OFF 
-                                            ->prefix('Rp.'),
+                                            ->prefix('$'),
                                         TextInput::make('compare_price')
                                             ->numeric()
                                             ->minValue(0)
                                             ->step(0.01)
                                             ->helperText('Original price to show discount') // $50
-                                            ->prefix('Rp.'),
+                                            ->prefix('$'),
                                         TextInput::make('cost_price')
                                             ->numeric()
                                             ->minValue(0)
                                             ->step(0.01)
                                             ->helperText('cost from supplier (for profit calculations)')
-                                            ->prefix('Rp.'),
+                                            ->prefix('$'),
                                     ])->columns(2),
-                                //Inventory Showcase
                                 Section::make('Inventory')
                                     ->schema([
                                         Toggle::make('manage_stock')
@@ -149,8 +145,6 @@ class ProductForm
                                     ])
                                     ->columns(2)
                             ]),
-
-                        //form image
                         Tab::make('Images')
                             ->icon(Heroicon::Photo)
                             ->schema([
@@ -211,14 +205,14 @@ class ProductForm
                                                 TextInput::make('price')
                                                     ->required()
                                                     ->numeric()
-                                                    ->prefix('Rp.')
+                                                    ->prefix('$')
                                                     ->minValue(0)
                                                     ->step(0.01),
 
                                                 TextInput::make('compare_price')
                                                     ->label('Compare Price')
                                                     ->numeric()
-                                                    ->prefix('Rp.')
+                                                    ->prefix('$')
                                                     ->minValue(0)
                                                     ->step(0.01),
 

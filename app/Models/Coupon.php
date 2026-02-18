@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use function Livewire\Volt\protect;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -46,32 +47,28 @@ class Coupon extends Model
 
     //check for valid coupon
     #[Scope]
-    protected function valid(Builder $builder)
-    {
+    protected function valid(Builder $builder){
         $now = Carbon::now();
         $builder->where('is_active', true)
-            ->where(function ($q) use ($now) {
-                $q->whereNull('starts_at')->orWhere('starts_at', '<=', $now);
-            })
-            ->where(function ($q) use ($now) {
-                $q->whereNull('expires_at')->orWhere('expires_at', '>=', $now);
-            });
+        ->where(function($q) use($now){
+            $q->whereNull('starts_at')->orWhere('starts_at', '<=', $now);
+        })
+        ->where(function($q) use ($now){
+            $q->whereNull('expires_at')->orWhere('expires_at','>=', $now);
+        });
     }
 
     //relationships
-    public function orders()
-    {
+    public function orders(){
         return $this->hasMany(Order::class);
     }
 
-    public function usages()
-    {
+    public function usages(){
         return $this->hasMany(CouponUsage::class);
     }
 
     //helper method
-    public function isValid()
-    {
+    public function isValid(){
         if (!$this->is_active) {
             return false;
         }
@@ -91,13 +88,12 @@ class Coupon extends Model
         return true;
     }
 
-    public function canBeUsedByCustomer($customerId)
-    {
+    public function canBeUsedByCustomer($customerId){
         if (!$this->isValid()) {
             return false;
         }
 
-        if ($this->usage_limit_per_customer) {
+        if($this->usage_limit_per_customer){
             $usageCount = $this->usages()->where('customer_id', $customerId)->count();
             if ($usageCount >= $this->usage_limit_per_customer) {
                 return false;
@@ -107,15 +103,14 @@ class Coupon extends Model
         return true;
     }
 
-    public function calculateDiscount($subtotal)
-    {
+    public function calculateDiscount($subtotal){
         if ($this->minimum_order_value && $subtotal < $this->minimum_order_value) {
             return 0;
         }
 
         if ($this->type === 'percentage') {
             $discount = ($subtotal * $this->value) / 100;
-        } else {
+        }else {
             $discount = $this->value;
         }
 

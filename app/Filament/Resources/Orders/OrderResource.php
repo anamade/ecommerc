@@ -16,7 +16,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use UnitEnum;
-
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
@@ -25,7 +24,6 @@ class OrderResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'order_number';
     protected static string | UnitEnum | null $navigationGroup = 'Sales';
-
 
     public static function form(Schema $schema): Schema
     {

@@ -17,13 +17,13 @@ class CategoryForm
             ->components([
                 Section::make('Category Information')
                     ->columnSpanFull()
-                    ->columns([2])
+                    ->columns(2)
                     ->schema([
                         TextInput::make('name')
                             ->required(),
                         TextInput::make('slug')
-                            ->readOnly()
                             ->unique(ignoreRecord: true)
+                            ->readOnly()
                             ->visibleOn('edit'),
                         Textarea::make('description')
                             ->rows(3)
@@ -38,8 +38,8 @@ class CategoryForm
                             ->image(),
                     ]),
 
-                section::make('Display Settings')
-                    ->columns([2])
+                Section::make('Display Settings')
+                ->columns(2)
                     ->schema([
                         Toggle::make('is_active')
                             ->required(),
@@ -47,18 +47,15 @@ class CategoryForm
                             ->required()
                             ->numeric()
                             ->default(0),
-
                     ]),
-                section::make('SEO')
+                Section::make('SEO')
                     ->schema([
                         TextInput::make('meta_title')
                             ->default(null),
                         Textarea::make('meta_description')
                             ->default(null)
                             ->columnSpanFull(),
-
                     ]),
-
 
 
             ]);

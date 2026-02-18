@@ -2,15 +2,13 @@
 
 namespace App\Livewire\Settings;
 
-use App\Concerns\PasswordValidationRules;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class Password extends Component
 {
-    use PasswordValidationRules;
-
     public string $current_password = '';
 
     public string $password = '';
@@ -24,8 +22,8 @@ class Password extends Component
     {
         try {
             $validated = $this->validate([
-                'current_password' => $this->currentPasswordRules(),
-                'password' => $this->passwordRules(),
+                'current_password' => ['required', 'string', 'current_password'],
+                'password' => ['required', 'string', PasswordRule::defaults(), 'confirmed'],
             ]);
         } catch (ValidationException $e) {
             $this->reset('current_password', 'password', 'password_confirmation');

@@ -2,15 +2,15 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\Customers\CustomerResource;
-use App\Filament\Resources\Orders\OrderResource;
 use App\Models\Order;
-use Filament\Actions\BulkActionGroup;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Actions\BulkActionGroup;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Orders\OrderResource;
+use App\Filament\Resources\Customers\CustomerResource;
 
 class LatestOrders extends TableWidget
 {
@@ -19,18 +19,18 @@ class LatestOrders extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => Order::query())
+            ->query(fn (): Builder => Order::query())
             ->columns([
                 TextColumn::make('order_number')
                     ->weight('bold')
-                    ->url(fn($record) => OrderResource::getUrl('edit', [$record])),
+                    ->url(fn ($record) => OrderResource::getUrl('edit',[$record])),
 
                 TextColumn::make('customer.name')
-                    ->url(fn($record) => CustomerResource::getUrl('edit', [$record->customer])),
+                    ->url(fn ($record) => CustomerResource::getUrl('edit',[$record->customer])),
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         'pending' => 'warning',
                         'processing' => 'info',
                         'shipped' => 'primary',
@@ -39,7 +39,7 @@ class LatestOrders extends TableWidget
                     }),
 
                 TextColumn::make('total')
-                    ->money('Rp')
+                    ->money('USD')
                     ->weight('bold'),
 
                 TextColumn::make('created_at')

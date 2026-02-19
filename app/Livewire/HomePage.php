@@ -21,7 +21,7 @@ class HomePage extends Component
             ->sorted()
             ->withCount('products')
             ->limit(6)
-            ->get(); 
+            ->get();
         $newArrivals = Product::active()
             ->inStock()
             ->with(['category', 'brand', 'primaryImage'])
@@ -29,7 +29,7 @@ class HomePage extends Component
             ->limit(8)
             ->get();
 
-        return view('livewire.home-page',[
+        return view('livewire.home-page', [
             'featuredProducts' => $featuredProducts,
             'categories' => $categories,
             'newArrivals' => $newArrivals
